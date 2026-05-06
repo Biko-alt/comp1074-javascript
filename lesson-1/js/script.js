@@ -1,41 +1,96 @@
-		/*
-		STEP 1: What is JavaScript?
+// STEP 1: Initialize game variables
+// STEP 1a: Pick random number
+/* */
+// STEP 1b: Create variables to represent the three paragraphs above that will contain user feedback
+const guesses = document.querySelector('p#guesses');
+const lastResult = document.querySelector('p#lastResult');
+/* */
+// STEP 1c: Create variables to represent the guessing form
+const guessField = document.querySelector('input#guessField');
+/* */
+// STEP 1d: Create variables to initialize counter for number of guesses
+let guessCount = 1;
+// STEP 1e: Create a variable to represent the game reset button
+let resetButton;
 
-		JavaScript is an interpreted language, rather than a compiled language like C/C++. That is - the code is run in a linear way, then the result is returned as output of some kind.
+// STEP 2: Put focus on the field that allows user to type in guesses
+guessField.focus();
 
-		JavaScript can be run either on a server or on a client (like a desktop or phone browser). We will be focused on client-side JavaScript.
+// STEP 3: Build a function to check the user's guess
+function checkGuess() {
+    // STEP 3a: Create a variable to contain what number the user entered
+    let userGuess = Number(guessField.value);
+    // STEP 3b: If this is the first guess, add some text to the screen as a label for listing previous guesses for reference
+    if (guessCount === 1) {
+        guesses.textContent = 'Previous guesses: ';
+    }
+    // STEP 3c: Add the user's current guess to that list, plus a space
+    guesses.textContent += userGuess + ' ';
+    // STEP 3d: Conditional - the user guessed correctly
+    if (userGuess === randomNumber) {
+        // Output a success message, then end the game
+        /* */
+        lastResult.style.backgroundColor = 'green';
+        lowOrHi.textContent = '';
+        setGameOver();
+    // STEP 3e: Conditional - the user is all out of guesses
+    } else if (guessCount === 10) {
+        // Output an appropriate message, then end the game
+        /* */
+        setGameOver();
+    // STEP 3f: Conditional - the user's guess is incorrect
+    } else {
+        // Output an appropriate message
+        lastResult.textContent = 'Wrong!';
+        lastResult.style.backgroundColor = 'red';
+        // If the guess is too low, let the user know
+        if (userGuess /* */) {
+            lowOrHi.textContent = 'Too low.';
+        // Else if the guess is too high, let the user know
+        } else if (userGuess > randomNumber) {
+            lowOrHi.textContent = 'Too high.';
+        }
+    }
+    // STEP 3g: Increment the guess count, move focus to the guess field for the next guess, and clear out the old input
+    /* */
+    guessField.value = '';
+    guessField.focus();
+    // STEP 3h: Proceed to the bottom of this file, just before we close out the SCRIPT element
+}
 
-		JavaScript can do a number of things:
-		1. Store information in variables or arrays
-		2. Manipulate blocks of text known as 'strings'
-		3. Respond to user events
-		4. Change content on the page
-		5. Modify the CSS styles
-		…and much more!
+// STEP 4: Build a function to end the game
+function setGameOver() {
+    // STEP 4a: Disable the guessing field and submit button
+    /* */
+    guessSubmit.disabled = true;
+    // STEP 4b: Build a new button to start a new game
+    resetButton = document.createElement('button');
+    resetButton.textContent = 'New game';
+    /* */
+    // STEP 4c: Add a click event to the new button that calls resetGame function
+    resetButton.addEventListener('click', resetGame);
+}
 
-		But it is JavaScript's interaction with Application Programming Interfaces (APIs), that really make things interesting (and powerful).
-
-		There are two main categories of APIs:
-		1. Browser APIs
-		2. Third-Party APIs
-
-		Browser APIs allow JavaScript to do things like update the Document Object Model (DOM API), locate the user (Geolocation API), generate 2D and 3D graphics (Canvas and WebGL APIs), and work with audio and video (Multimedia APIs).
-		*/
-
-		// STEP 2: Get the EM element and store as a variable, using const
-		const element = document.querySelector('em');
-		// STEP 3: Assign a click event listener to the above element, and include a reference to the function to be invoked
-		element.addEventListener("click", updatename());
-		// STEP 4: Creat a function that waits for the above click event
-		function updatename() {
-			// STEP 4a: Display a prompt asking for input, and assign the input to a variable using let
-			let firstName = prompt("Enter your name:");
-			console.log(firstName);
-			// STEP 4b: Grab the input from the variable and build a new string, then change the text inside the EM element, using the textContent property
-			element.textContent(firstName);
-		};
-		// STEP 5: Comment out the addEventListener above, and replace it with an onclick attribute typed directly into the EM element in the HTML - note that this is common, but it is considered to be bad practice - separate your HTML and your JS
-
-		// STEP 6: Move the above JavaScript into an external file and reference it with an empty SCRIPT element inside the HEAD element - be sure to add a defer attribute in the SCRIPT start tag
-
-		// This page inspired by and adapted from https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript
+// STEP 5: Build a function to start a new game
+function resetGame() {
+    // STEP 5a: Restore the guessCount variable to 1
+    guessCount = 1;
+    // STEP 5b: Clear out all the old messages in the paragraphs below the guessing form - this will need a loop
+    const resetParas = document.querySelectorAll('section p');
+    for (var i = 0 ; i < resetParas.length ; i++) {
+        resetParas[i].textContent = '';
+    }
+    // STEP 5c: Remove the reset button
+    /* */
+    // STEP 5d: Re-enable the guessing form, clear out any old input, then put focus on the field
+    guessField.disabled = false;
+    guessSubmit.disabled = false;
+    guessField.value = '';
+    guessField.focus();
+    // STEP 5e: Change background color of lastResult paragraph back to white
+    lastResult.style.backgroundColor = 'white';
+    // STEP 5f: Generate a new random number
+    randomNumber = Math.floor(Math.random() * 100) + 1;
+}
+// STEP 3i: Add an event listener for the guess form button that calls the checkGuess function
+/* */
