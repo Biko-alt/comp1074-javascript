@@ -52,46 +52,70 @@
 				let userGuess = Number(guessField.value);
 				console.log(userGuess);
 				// STEP 3c: If this is the first guess, add some text to the screen as a label for listing previous guesses for reference
-				
-				
-				
+				console.log(guessCount);
+				if (guessCount === 1) {
+					guesses.textContent = "Previous guesses: ";
+				}
 				// STEP 3d: Add the user's current guess to that list, plus a space
+				guesses.textContent += userGuess + " ";
 				
 				
 				// STEP 3e: Conditional - the user guessed correctly
-				
+				if (userGuess === randomNumber) {
 					// Output a success message, then end the game
-					
-					
-					
-					
+					lastResult.textContent = "Congratulations! You got it right!";
+					lastResult.style.backgroundColor = "green";
+					lowOrHi.textContent = "";
+					gameOver();
+				}
 				// STEP 3f: Conditional - the user is all out of guesses
+				else if (guessCount === 10) {
 				
 					// Output an appropriate message, then end the game
-					
+					lastResult.textContent = "Game Over! You've used all 10 guesses.";
+					lowOrHi.textContent = "The number was " + randomNumber + ".";
+					lastResult.style.backgroundColor = "red";
+					gameOver();
+				}
 					
 				// STEP 3g: Conditional - the user's guess is incorrect
-				
+				else {
 					// Output an appropriate message
-					
-					
+					lastResult.textContent = "Wrong! Try again.";
+					lastResult.style.backgroundColor = "red";
+
 					// If the guess is too low, let the user know
-					
-					
+					if (userGuess < randomNumber) {
+						lowOrHi.textContent = "Your guess is too low!";
+					}
 					// Else if the guess is too high, let the user know
-					
-					
-				
+					else if (userGuess > randomNumber) {
+						lowOrHi.textContent = "Your guess is too high!";
+					}
+
+				}
 				// STEP 3h: Increment the guess count, move focus to the guess field for the next guess, and clear out the old input
+				guessCount++;
+				guessField.value = "";
+				guessField.focus();
 				
 			}	
 			// STEP 4: Build a function called gameOver() to end the game
+			function gameOver() {
 			
 				// STEP 4a: Disable the guessing field and submit button
-				
-				
+				guessField.disabled = true;
+				guessSubmit.disabled = true;
+
 				// STEP 4b: Change the textContent of the #lowOrHi paragraph to a short phrase indicating that the game is over, and that the user can start a new game by refreshing the browser page or tab
-				
+				lowOrHi.textContent = "Game Over!";
+				// STEP 4c: Create a new button element, set its textContent to "Start new game", and append it to the document body
+				resetButton = document.createElement('button');
+				resetButton.textContent = "Start new game";
+				document.body.appendChild(resetButton);
+				// STEP 4d: Add an event listener to the reset button that listens for a click and calls a function called resetGame
+				resetButton.addEventListener('click', resetGame);
+			}
 			
 			// STEP 3a: Add an event listener for the guess form button that calls the checkGuess function, then test that the event listener is working and that it invokes the function
 			guessSubmit.addEventListener('click', checkGuess);
