@@ -10,6 +10,7 @@ Modify the below function to allow it to accept the event as a parameter or argu
 function bgChange() {
     var rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
     document.body.style.backgroundColor = rndCol;
+    console.log(event);
 }
 // The target property of the event is a reference to the element that the event was acted upon
 
@@ -27,7 +28,16 @@ const submit = document.getElementById('submit');
 const para = document.querySelector('#formErrors');
 
 /* STEP 2b: Create a script to capture the onsubmit event using preventDefault() */
-
+form.addEventListener('submit', (event) => {
+    console.log(event);
+    if (email.value === '') {
+        para.textContent = 'Error: Email address cannot be empty';
+    } else {
+        para.textContent = '';
+        form.submit();
+    }
+    event.preventDefault();
+});
 // Next, open up gallery.html...
 
 // This page inspired by and adapted from https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events
