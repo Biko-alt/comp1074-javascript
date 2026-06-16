@@ -13,3 +13,49 @@ body {
     padding: 20px;
     box-shadow: 0 0 15px gray;
 }
+
+h1 {
+    color: #1c5fd4;
+}
+
+.story-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.story-controls button {
+    padding: 12px 18px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: orange;
+    cursor: pointer;
+}
+
+.story-controls button:hover {
+    background-color: #30b5e8;
+}
+
+.buttons button {
+    padding: 12px 18px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: orange;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: darkorange;
+}
+
+#output {
+    margin-top: 25px;
+    font-size: 24px;
+    color: darkblue;
+    min-height: 60px;
+}
