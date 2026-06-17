@@ -24,93 +24,68 @@ var part4 = document.getElementById("part4");
 var part5 = document.getElementById("part5");
 var output = document.getElementById("output");
 
-//Subject button
-part1.onclick = function() {
-    if (subjectIndex >= subjects.length) {
-        subjectIndex++;
-    }
-    part1.innerHTML = subjects[subjectIndex];
-};
+//Cycle through each array
+part1.addEventListener("click", () => {
+    index1 = (index1 + 1) % subjects.length;
+    part1.textContent = subjects[index1];
+});
 
-//Verb button
-part2.onclick = function() {
-    if (verbIndex >= verbs.length) {
-        verbIndex++;
-    }
-    part2.innerHTML = verbs[verbIndex];
-};
+part2.addEventListener("click", () => {
+    index2 = (index2 + 1) % verbs.length;
+    part2.textContent = verbs[index2];
+});
 
-//Adjective button
-part3.onclick = function() {
-    if (adjectiveIndex >= adjectives.length) {
-        adjectiveIndex++;
-    }
-    part3.innerHTML = adjectives[adjectiveIndex];
-};
+part3.addEventListener("click", () => {
+    index3 = (index3 + 1) % adjectives.length;
+    part3.textContent = adjectives[index3];
+});
 
-//Noun button
-part4.onclick = function() {
-    if (nounIndex >= nouns.length) {
-        nounIndex++;
-    }
-    part4.innerHTML = nouns[nounIndex];
-};
+part4.addEventListener("click", () => {
+    index4 = (index4 + 1) % nouns.length;
+    part4.textContent = nouns[index4];
+});
 
-//Places button
-part5.onclick = function() {
-    if (placesIndex >= places.length) {
-        placesIndex++;
-    }
-    part5.innerHTML = places[placesIndex];
-}; 
+part5.addEventListener("click", () => {
+    index5 = (index5 + 1) % places.length;
+    part5.textContent = places[index5];
+});
 
-//Tell Story button
-document.getElementById("showStory").onclick = function() {
-    subjectIndex = Math.floor(Math.random() * subjects.length);
-    verbIndex = Math.floor(Math.random() * verbs.length);
-    adjectiveIndex = Math.floor(Math.random() * adjectives.length);
-    nounIndex = Math.floor(Math.random() * nouns.length);
-    placesIndex = Math.floor(Math.random() * places.length);
+//Create Story
+document.getElementById("showStory").addEventListener("click", () => {
+    let story = `${subjects[index1]} ${verbs[index2]} ${adjectives[index3]} ${nouns[index4]} ${places[index5]}.`;
+    output.textContent = story;
+});
 
-    part1.innerHTML = subjects[subjectIndex];
-    part2.innerHTML = verbs[verbIndex];
-    part3.innerHTML = adjectives[adjectiveIndex];
-    part4.innerHTML = nouns[nounIndex];
-    part5.innerHTML = places[placesIndex];
+//Random Story
+document.getElementById("randomStory").addEventListener("click", () => {
+    index1 = Math.floor(Math.random() * subjects.length);
+    index2 = Math.floor(Math.random() * verbs.length);
+    index3 = Math.floor(Math.random() * adjectives.length);
+    index4 = Math.floor(Math.random() * nouns.length);
+    index5 = Math.floor(Math.random() * places.length);
 
-    output.innerHTML = subjects[subjectIndex] + " " + verbs[verbIndex] + " " + adjectives[adjectiveIndex] + " " + nouns[nounIndex] + " " + places[placesIndex];
-};
+    part1.textContent = subjects[index1];
+    part2.textContent = verbs[index2];
+    part3.textContent = adjectives[index3];
+    part4.textContent = nouns[index4];
+    part5.textContent = places[index5];
 
-//Random Story button
-document.getElementById("randomStory").onclick = function() {
-    subjectIndex = Math.floor(Math.random() * subjects.length);
-    verbIndex = Math.floor(Math.random() * verbs.length);
-    adjectiveIndex = Math.floor(Math.random() * adjectives.length);
-    nounIndex = Math.floor(Math.random() * nouns.length);
-    placesIndex = Math.floor(Math.random() * places.length);
+    output.textContent = `${subjects[index1]} ${verbs[index2]} ${adjectives[index3]} ${nouns[index4]} ${places[index5]}.`;
+});
 
-    part1.innerHTML = subjects[subjectIndex];
-    part2.innerHTML = verbs[verbIndex];
-    part3.innerHTML = adjectives[adjectiveIndex];
-    part4.innerHTML = nouns[nounIndex];
-    part5.innerHTML = places[placesIndex];
+//Reset Button
+document.getElementById("reset").addEventListener("click", () => {
+    index1 = 0;
+    index2 = 0;
+    index3 = 0;
+    index4 = 0;
+    index5 = 0;
 
-    output.innerHTML = subjects[subjectIndex] + " " + verbs[verbIndex] + " " + adjectives[adjectiveIndex] + " " + nouns[nounIndex] + " " + places[placesIndex];
-};
+    part1.textContent = subjects[0];
+    part2.textContent = verbs[0];
+    part3.textContent = adjectives[0];
+    part4.textContent = nouns[0];
+    part5.textContent = places[0];
 
-//Reset button
-document.getElementById("reset").onclick = function() {
-    subjectIndex = 0;
-    verbIndex = 0;
-    adjectiveIndex = 0;
-    nounIndex = 0;
-    placesIndex = 0;
-
-    part1.innerHTML = subjects[0];
-    part2.innerHTML = verbs[0];
-    part3.innerHTML = adjectives[0];
-    part4.innerHTML = nouns[0];
-    part5.innerHTML = places[0];
-
-    output.innerHTML = "";
-};
+    output.textContent = "";
+}); 
